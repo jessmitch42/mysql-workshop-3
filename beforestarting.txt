@@ -1,0 +1,36 @@
+Exercise 1
+
+Which Account owns the most Address Books? accountIDs 14 and 5
+
+mysql> SELECT COUNT(*), accountId FROM AddressBook GROUP BY accountId ORDER BY COUNT(*);
+    +----------+-----------+
+    | COUNT(*) | accountId |
+    +----------+-----------+
+    .....//removed by me
+    |       19 |        14 |
+    |       19 |         5 |
+    +----------+-----------+
+
+Which Address Book contains the most Entries? addressBookId = 52 entries 
+
+mysql> SELECT COUNT(*), addressBookId FROM Entry GROUP BY addressBookId ORDER BY COUNT(*);                            
+    +----------+---------------+
+    | COUNT(*) | addressBookId |
+    +----------+---------------+
+    ...//removed by me
+    |       52 |            37 |
+    +----------+---------------+
+
+Exercise 2
+
+How many Address Book Entries have phones starting with area code 3XX? 60 
+
+    mysql> SELECT subtype, contentLineOne, addressBookId FROM Entry WHERE subtype = "phone" AND contentLineOne LIKE "1-3%" OR contentLineOne LIKE "(3%";
+
+How many Address Book Entries have home phones not containing the digit 5? 76 rows in set (0.00 sec)
+
+    mysql> SELECT subtype, contentLineOne, addressBookId FROM Entry WHERE type = "home" AND subtype = "phone" AND contentLineOne NOT LIKE "%5%"; 
+
+How many Address Book Entries are work phones starting with a country code? 60 rows in set (0.00 sec)
+
+    mysql> SELECT subtype, contentLineOne, addressBookId FROM Entry WHERE type = "work" AND subtype = "phone" AND contentLineOne LIKE "1%";
